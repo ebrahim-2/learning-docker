@@ -1,0 +1,10 @@
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker build -t ebrahim/react-app -f Dockerfile.dev .
+
+script:
+  - docker run ebrahim/react-app yarn run test
