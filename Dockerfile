@@ -1,10 +1,12 @@
-FROM node:11.15-alpine as builder
+FROM node:11.15-alpine
 
 WORKDIR /usr/app
 
-COPY ./build ./build
+COPY ./package.json .
+RUN yarn install
 
-FROM nginx
+COPY . .
 
-COPY --from=builder /usr/app/build /usr/share/nginx/html
+RUN yarn run build
 
+CMD [ "yarn", "run", "prod" ]
